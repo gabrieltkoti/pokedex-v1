@@ -5,8 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function PokemonCard(props) {
-  const item = props.item
+export default function PokemonCard({name}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -18,7 +17,7 @@ export default function PokemonCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Lizards are a widespread group of squamate reptiles, with over 6,000
