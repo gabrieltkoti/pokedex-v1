@@ -5,7 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function PokemonCard() {
+export default function PokemonCard(props) {
+  const item = props.item
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
