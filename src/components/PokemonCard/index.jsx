@@ -13,7 +13,7 @@ export default function PokemonCard({name, image}) {
           component="img"
           height="140"
           image={image}
-          alt="green iguana"
+          alt={name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
