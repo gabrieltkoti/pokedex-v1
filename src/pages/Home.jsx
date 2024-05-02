@@ -11,9 +11,15 @@ export default function Home (){
   }, [])
 
   const getPokemons = () => {
-    axios.get("https://pokeapi.co/api/v2/pokemon?limit=100")
-    .then((res) => setPokemons(res.data.results))
-    .catch((err) => console.log(err))
+    const endpoints = []
+    for(var i=1; i < 100; i++ ){
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
+    }
+    console.log(endpoints)
+    const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
+    //axios.get("https://pokeapi.co/api/v2/pokemon?limit=100")
+    //.then((res) => setPokemons(res.data.results))
+    //.catch((err) => console.log(err))
   }
 
   console.log(pokemons)
@@ -22,9 +28,9 @@ export default function Home (){
         <NavBar />
         <Container maxWidth='false'>
           <Grid container> 
-            {pokemons.map((pokemon) => (
+            {pokemons.map((pokemon, key) => (
               <Grid item xs={3}>
-                <PokemonCard name={pokemon.name} />
+                <PokemonCard name={pokemon.data.name} key={key} image={pokemon.data.sprites.front_default} />
               </Grid>
             ))}
           </Grid>
