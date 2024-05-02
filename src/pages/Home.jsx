@@ -3,28 +3,27 @@ import PokemonCard from "../components/PokemonCard";
 import {useEffect, useState} from 'react'
 
 export default function Home (){
+  const [pokemons, setPokemons] = useState([])
     const urlPokes = []
     for (var i = 1; i < 1000; i++){
         urlPokes.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
     }
-    console.log(urlPokes)
-    const [pokemons, setPokemons] = useState([])
-
-    const urlAPI = 'https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0'
-
-    useEffect(function () {
-        async function carregarDados() {
-          const response = await urlPokes.map((urlPoke) => fetch(urlPoke)) 
-          const data = await response.json()
-    
-          const results = data.results
-          setPokemons(results)
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const dataPromises = urlPokes.map(url => fetch(url).then(response => response.json()));
+          const fetchedData = await Promise.all(dataPromises);
+          setPokemons(fetchedData);
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error);
         }
-    
-        carregarDados()
-      }, [])
+      };
+  
+      fetchData();
+  
+    }, []);
+    console.log(pokemons)
 
-      //console.log(pokemons)
     return (
         <>
         carregarDados()
