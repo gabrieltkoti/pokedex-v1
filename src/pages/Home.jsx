@@ -10,7 +10,7 @@ export default function Home (){
     getPokemons()
   }, [])
 
-  const getPokemons = () => {
+  /*const getPokemons = () => {
     const endpoints = []
     for(var i=1; i < 152; i++ ){
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
@@ -18,7 +18,21 @@ export default function Home (){
     console.log(endpoints)
     const response = axios.all(endpoints.map((endpoint) => 
       axios.get(endpoint))).then((res) => setPokemons(res))
-  }
+  }*/
+
+  const getPokemons = async () => {
+    try {
+      const endpoints = [];
+      for (let i = 1; i <= 151; i++) {
+        endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
+      }
+      const responses = await axios.all(endpoints.map(endpoint => axios.get(endpoint)));
+      const pokemonData = responses.map(response => response.data);
+      setPokemons(pokemonData);
+    } catch (error) {
+      console.error('Error fetching Pokemon data:', error);
+    }
+  };
 
   console.log(pokemons)
     return (
@@ -26,9 +40,13 @@ export default function Home (){
         <NavBar />
         <Container maxWidth='false'>
           <Grid container> 
-            {pokemons.map((pokemon, key) => (
-              <Grid item xs={3}>
-                <PokemonCard name={pokemon.data.name} key={key} image={pokemon.data.sprites.front_default} />
+            {pokemons.map((pokemon, key, types) => (
+              <Grid item xs={12} sm={6} md={4} lg={2}>
+                <PokemonCard 
+                name={pokemon.name} 
+                key={key} 
+                image={pokemon.sprites.front_default} 
+                types={pokemon.types} />
               </Grid>
             ))}
           </Grid>

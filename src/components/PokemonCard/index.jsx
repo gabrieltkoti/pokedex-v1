@@ -5,13 +5,22 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function PokemonCard({name, image}) {
+export default function PokemonCard({name, image, types}) {
+  const handleTypes = () => {
+    if (types[1]){
+      return types[0].type.name+ ' | ' + types[1].type.name
+    } return types[0].type.name
+  }
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ 
+      maxWidth: 320,
+      border: 2,
+      borderRadius: 8,
+      borderColor: 'black' }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height='200'
           image={image}
           alt={name}
         />
@@ -19,11 +28,12 @@ export default function PokemonCard({name, image}) {
           <Typography gutterBottom variant="h5" component="div">
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Text
+          <Typography gutterBottom variant="h6" component="div">
+            {handleTypes()}
           </Typography>
         </CardContent>  
       </CardActionArea>
     </Card>
+    
   );
 }
