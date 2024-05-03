@@ -12,14 +12,12 @@ export default function Home (){
 
   const getPokemons = () => {
     const endpoints = []
-    for(var i=1; i < 100; i++ ){
+    for(var i=1; i < 152; i++ ){
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`)
     }
     console.log(endpoints)
-    const response = axios.all(endpoints.map((endpoint) => axios.get(endpoint))).then((res) => setPokemons(res))
-    //axios.get("https://pokeapi.co/api/v2/pokemon?limit=100")
-    //.then((res) => setPokemons(res.data.results))
-    //.catch((err) => console.log(err))
+    const response = axios.all(endpoints.map((endpoint) => 
+      axios.get(endpoint))).then((res) => setPokemons(res))
   }
 
   console.log(pokemons)
